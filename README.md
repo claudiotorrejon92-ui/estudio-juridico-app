@@ -45,4 +45,16 @@ Desarrollado para el estudio jurídico - @claudiotorrejon92-ui
 
 ## 📞 Soporte
 
-Para soporte técnico, crear un issue en este repositorio.# estudio-juridico-app
+Para soporte técnico, crear un issue en este repositorio.
+
+## 🔄 Actualizaciones Futuras
+
+- Integración con Google Drive real
+- Exportación a PDF y Excel
+- Recordatorios automáticos
+- Múltiples usuarios
+- Facturación integrada
+
+## 📄 Licencia
+
+Este proyecto es de código abierto y está disponible para uso personal y comercial.

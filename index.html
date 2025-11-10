@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudio Jurídico - Sistema de Gestión</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-balance-scale"></i> Estudio Jurídico</h1>
+            <p>Sistema de gestión de casos y clientes</p>
+        </header>
+
+        <nav class="nav-menu">
+            <button onclick="mostrarSeccion('dashboard')" class="nav-btn active">
+                <i class="fas fa-chart-line"></i> Dashboard
+            </button>
+            <button onclick="mostrarSeccion('clientes')" class="nav-btn">
+                <i class="fas fa-users"></i> Clientes
+            </button>
+            <button onclick="mostrarSeccion('casos')" class="nav-btn">
+                <i class="fas fa-folder-open"></i> Casos
+            </button>
+            <button onclick="mostrarSeccion('documentos')" class="nav-btn">
+                <i class="fas fa-file-alt"></i> Documentos
+            </button>
+            <button onclick="mostrarSeccion('agenda')" class="nav-btn">
+                <i class="fas fa-calendar-alt"></i> Agenda
+            </button>
+        </nav>
+
+        <section id="dashboard" class="seccion">
+            <h2>📊 Resumen General</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3 id="totalClientes">0</h3>
+                    <p>Clientes</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-folder-open"></i>
+                    <h3 id="totalCasos">0</h3>
+                    <p>Casos Activos</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-file-alt"></i>
+                    <h3 id="totalDocumentos">0</h3>
+                    <p>Documentos</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar-check"></i>
+                    <h3 id="totalAudiencias">0</h3>
+                    <p>Audiencias</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="clientes" class="seccion" style="display:none;">
+            <h2><i class="fas fa-users"></i> Gestión de Clientes</h2>
+            <div class="form-card">
+                <h3>Agregar Nuevo Cliente</h3>
+                <input type="text" id="nombreCliente" placeholder="Nombre completo *" required>
+                <input type="email" id="emailCliente" placeholder="Correo electrónico">
+                <input type="tel" id="telefonoCliente" placeholder="Teléfono *" required>
+                <input type="text" id="direccionCliente" placeholder="Dirección">
+                <textarea id="notasCliente" placeholder="Notas adicionales"></textarea>
+                <button onclick="agregarCliente()" class="btn-primary">
+                    <i class="fas fa-save"></i> Guardar Cliente
+                </button>
+            </div>
+            <div class="search-box">
+                <input type="text" id="buscarCliente" placeholder="🔍 Buscar cliente..." onkeyup="buscarCliente()">
+            </div>
+            <div id="listaClientes" class="data-grid"></div>
+        </section>
+
+        <section id="casos" class="seccion" style="display:none;">
+            <h2><i class="fas fa-folder-open"></i> Gestión de Casos</h2>
+            <div class="form-card">
+                <h3>Nuevo Caso</h3>
+                <input type="text" id="tituloCaso" placeholder="Título del caso *" required>
+                <select id="clienteCaso" required>
+                    <option value="">Seleccionar cliente *</option>
+                </select>
+                <select id="tipoCaso">
+                    <option value="">Tipo de caso</option>
+                    <option value="Civil">Civil</option>
+                    <option value="Penal">Penal</option>
+                    <option value="Laboral">Laboral</option>
+                    <option value="Familia">Familia</option>
+                    <option value="Mercantil">Mercantil</option>
+                </select>
+                <textarea id="descripcionCaso" placeholder="Descripción del caso"></textarea>
+                <input type="date" id="fechaInicioCaso">
+                <select id="estadoCaso">
+                    <option value="Activo">Activo</option>
+                    <option value="En proceso">En proceso</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Cerrado">Cerrado</option>
+                </select>
+                <button onclick="agregarCaso()" class="btn-primary">
+                    <i class="fas fa-save"></i> Guardar Caso
+                </button>
+            </div>
+            <div class="search-box">
+                <input type="text" id="buscarCaso" placeholder="🔍 Buscar caso..." onkeyup="buscarCaso()">
+            </div>
+            <div id="listaCasos" class="data-grid"></div>
+        </section>
+
+        <section id="documentos" class="seccion" style="display:none;">
+            <h2><i class="fas fa-file-alt"></i> Gestión de Documentos</h2>
+            <div class="form-card">
+                <h3>Subir Documentos</h3>
+                <select id="casoDocumento">
+                    <option value="">Seleccionar caso</option>
+                </select>
+                <input type="text" id="descripcionDocumento" placeholder="Descripción del documento">
+                <input type="file" id="archivoDocumento" multiple accept=".pdf,.doc,.docx,.jpg,.png">
+                <button onclick="subirDocumentos()" class="btn-primary">
+                    <i class="fas fa-cloud-upload-alt"></i> Subir Documentos
+                </button>
+            </div>
+            <div id="listaDocumentos" class="data-grid"></div>
+        </section>
+
+        <section id="agenda" class="seccion" style="display:none;">
+            <h2><i class="fas fa-calendar-alt"></i> Agenda y Audiencias</h2>
+            <div class="form-card">
+                <h3>Nueva Audiencia</h3>
+                <input type="text" id="tituloAudiencia" placeholder="Título de la audiencia *" required>
+                <select id="casoAudiencia">
+                    <option value="">Seleccionar caso *</option>
+                </select>
+                <input type="date" id="fechaAudiencia" required>
+                <input type="time" id="horaAudiencia" required>
+                <input type="text" id="lugarAudiencia" placeholder="Lugar">
+                <textarea id="notasAudiencia" placeholder="Notas importantes"></textarea>
+                <button onclick="agregarAudiencia()" class="btn-primary">
+                    <i class="fas fa-save"></i> Guardar Audiencia
+                </button>
+            </div>
+            <div id="calendarioAudiencias" class="data-grid"></div>
+        </section>
+    </div>
+
+    <div id="notificacion" class="notificacion"></div>
+
+    <script src="app.js"></script>
+    <script src="google-drive.js"></script>
+</body>
+</html>
